@@ -1,5 +1,6 @@
 # front-end
 
+<<<<<<< HEAD
 product vision: https://www.notion.so/dislersd/Product-Vision-8650648b724a4bb6b6062270da8ffdb8
 
 
@@ -52,3 +53,6 @@ product vision: https://www.notion.so/dislersd/Product-Vision-8650648b724a4bb6b6
         fundsNeeded: "$5,000.00"
         fundsRaised: "$1,325.00"
     },
+=======
+[product vision](https://www.notion.so/dislersd/Product-Vision-8650648b724a4bb6b6062270da8ffdb8)
+>>>>>>> master
