@@ -4,45 +4,45 @@ import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 ////These are the test objects before we use an api.
-export default [
-    {
-        schoolName: "Johnston Elementary School",
-        address: "1256 Franklin Ave",
-        city: "Pittsburgh",
-        state: "PA",
-        zip: "15221",
-        fundsNeeded: "$5,000.00",
-        fundsRaised: "$1,325.00"
-    },
+// export default [
+//     {
+//         school_name: "Johnston Elementary School",
+//         address: "1256 Franklin Ave",
+//         city: "Pittsburgh",
+//         state: "PA",
+//         zipcode: "15221",
+//         funds_needed: "$5,000.00",
+//         funds_raised: "$1,325.00"
+//     },
 
-    {
-        schoolName: "Schenley High School",
-        address: "4101 Bigelow Blvd",
-        city: "Pittsburgh",
-        state: "PA",
-        zip: "15213",
-        fundsNeeded: "$8,000.00",
-        fundsRaised: "295.00"
-    }
+//     {
+//         school_name: "Schenley High School",
+//         address: "4101 Bigelow Blvd",
+//         city: "Pittsburgh",
+//         state: "PA",
+//         zipcode: "15213",
+//         funds_needed: "$8,000.00",
+//         funds_raised: "295.00"
+//     }
 
-];
+// ];
 
 ////// This is the schoolform data that admin creates
 const SchoolData = ({ values, touched, errors, status }) => {
 
-    const [schoolData, setSchoolData] = useState([])
+    const [schoolInfo, setSchoolInfo] = useState([])
 
     useEffect(() => {
-        status && setSchoolData(schoolData => [...schoolData, status])
+        status && setSchoolInfo(schoolInfo => [...schoolInfo, status])
     }, [status])
 
     return (
-        <div className='school-data'>
+        <div className='school-information'>
             <Form>
                 //schoolName
-                <Field type='text' name='schoolName' placeholder='School Name' />
-                {touched.schooName && errors.schoolName && (
-                    <p className='error'>{errors.schoolName}</p>
+                <Field type='text' name='school_name' placeholder='School Name' />
+                {touched.school_name && errors.school_name && (
+                    <p className='error'>{errors.school_name}</p>
                 )}
                 //address
                 <Field type='text' name='address' placeholder='Address' />
@@ -112,48 +112,50 @@ const SchoolData = ({ values, touched, errors, status }) => {
                     <p className='error'>{errors.state}</p>
                 )}
                 ///zipcode
-                <Field type='text' name='zip' placeholder='Zip Code' />
-                {touched.zip && errors.zip && (
-                    <p className='error'>{errors.zip}</p>
+                <Field type='text' name='zipcode' placeholder='Zip Code' />
+                {touched.zipcode && errors.zipcode && (
+                    <p className='error'>{errors.zipcode}</p>
                 )}
                 ////funds needed
-                <Field type='text' name='fundsNeeded' placeholder='Fund Goal' />
-                {touched.fundsNeeded && errors.fundsNeeded && (
-                    <p className='error'>{errors.fundsNeeded}</p>
+                <Field type='text' name='funds_needed' placeholder='Fund Goal' />
+                {touched.funds_needed && errors.funds_needed && (
+                    <p className='error'>{errors.funds_needed}</p>
                 )}
                 ////funds fundsraised    
-                <Field type='text' name='fundsRaised' placeholder='Funds Raised' />
-                {touched.fundsRaised && errors.fundsRaised && (
-                    <p className='error'>{errors.fundsRaised}</p>
+                <Field type='text' name='funds_raised' placeholder='Funds Raised' />
+                {touched.funds_raised && errors.funds_raised && (
+                    <p className='error'>{errors.funds_raised}</p>
                 )}
+                <br />
+                <button type='submit'>Submit</button>
             </Form>
         </div >
     );
 };
 
 const FormikSchoolData = withFormik({
-    mapPropsToValues({ schoolName, address, city, state, zip, fundsNeeded, fundsRaised }) {
+    mapPropsToValues({ school_name, address, city, state, zipcode, funds_needed, funds_raised }) {
         return {
-            schoolName: schoolName || '',
+            school_name: school_name || '',
             address: address || '',
             city: city || '',
             state: state || '',
-            zip: zip || '',
-            fundsNeeded: fundsNeeded || '',
-            fundsRaised: fundsRaised || ''
+            zipcode: zipcode || '',
+            funds_needed: funds_needed || '',
+            funds_raised: funds_raised || ''
         };
     },
     validationSchema: Yup.object().shape({
-        schoolName: Yup.string().required(),
+        school_name: Yup.string().required(),
         address: Yup.string().required(),
         city: Yup.string().required(),
         state: Yup.string().required('Please Select One'),
-        zip: Yup.string().required(),
-        fundsNeeded: Yup.string().required(),
-        fundsRaised: Yup.string().required(),
+        zipcode: Yup.string().required(),
+        funds_needed: Yup.string().required(),
+        funds_raised: Yup.string().required(),
     }),
     handleSubmit(values, { setStatus }) {
-        axios.post('', values)
+        axios.post('https://luncher-bw.herokuapp.com/api/register', values)
             .then(res => { setStatus(res.data); })
             .catch(err => console.log(err.response));
     }

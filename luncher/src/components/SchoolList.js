@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Card = styled.div`
  display: flex;
@@ -42,27 +43,55 @@ const ActionButton = styled.button`
  ${props => (props.type === 'donate') ? `background: #FFAD72` : null}
  `;
 
-const SchoolList = props => {
+
+
+
+export default function SchoolList() {
+    const [data, setData] = useState([]);
+    const [query, setQuery] = useState('');
+
+    useEffect(() => {
+        axios
+            .get(`https://luncher-bw.herokuapp.com/api/schools`)
+
+            .then(response => {
+                const schoolInput = response.data.filter(school =>
+                    school.school_name.toLowerCase().includes(query.toLowerCase())
+                );
+                console.log('school list', response);
+                setData(schoolInput);
+            })
+    }, [query]);
+
+
+    const handleInputChange = event => {
+        setQuery(event.target.value);
+    }
+
+
 
     return (
-        <>
-            {props.schoolList.map((school, index) => {
-                return (
-                    <Card key={index}>
-                        <H1>{school.schoolName}</H1>
-                        <P>{school.address}</P>
-                        <P>{school.city}, {school.state}. {school.zip}</P>
-                        <ActionButton type='needed'>{school.fundsNeeded} Funds Needed</ActionButton>
-                        <ActionButton type='raised'>{school.fundsRaised} Funds Raised</ActionButton>
-                        <br />
-                        <ActionButton type='donate'>Donate To {school.schoolName}</ActionButton>
-                        <br />
-                    </Card>
-                )
-            })}
-        </>
+        <section className='school-list'>
+            <SearchForm
+                placeholder='Search Schools'
+                value={query}
+                handleChange={handleInputChange}
+            />
+
+            {data.map((school => (
+                <Card key={school.id}>
+                    <H1>{school.school_name}</H1>
+                    <P>{school.address}</P>
+                    <P>{school.city}, {school.state}. {school.zipcode}</P>
+                    <ActionButton type='needed'>{school.funds_needed} Funds Needed</ActionButton>
+                    <ActionButton type='raised'>{school.funds_raised} Funds Raised</ActionButton>
+                    <br />
+                    <ActionButton type='donate'>Donate To {school.school_name}</ActionButton>
+                    <br />
+                </Card>
+            )
+            ))}
+        </section>
     );
 
 };
-
-export default SchoolList;
