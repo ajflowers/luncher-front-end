@@ -1,6 +1,5 @@
 import React from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { Redirect } from "react-router-dom"
 
 class Login extends React.Component {
   state = {
@@ -24,7 +23,8 @@ class Login extends React.Component {
     axiosWithAuth()
       .post("/admins/login", this.state.credentials)
       .then(res => {
-        localStorage.setItem("token", res.data.payload);
+        console.log(res);
+        localStorage.setItem("token", res.data.token);
         this.props.history.push("/dashboard")
       })
       .catch(err => console.log(err))  

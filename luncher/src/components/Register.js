@@ -1,6 +1,5 @@
 import React from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { Redirect } from "react-router-dom"
 
 class Register extends React.Component {
   state = {
