@@ -1,31 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { withFormik, Form, Field } from 'formik';
+
 import * as Yup from 'yup';
 
-////These are the test objects before we use an api.
-// export default [
-//     {
-//         school_name: "Johnston Elementary School",
-//         address: "1256 Franklin Ave",
-//         city: "Pittsburgh",
-//         state: "PA",
-//         zipcode: "15221",
-//         funds_needed: "$5,000.00",
-//         funds_raised: "$1,325.00"
-//     },
 
-//     {
-//         school_name: "Schenley High School",
-//         address: "4101 Bigelow Blvd",
-//         city: "Pittsburgh",
-//         state: "PA",
-//         zipcode: "15213",
-//         funds_needed: "$8,000.00",
-//         funds_raised: "295.00"
-//     }
-
-// ];
 
 ////// This is the schoolform data that admin creates
 const SchoolData = ({ values, touched, errors, status }) => {
@@ -121,11 +100,11 @@ const SchoolData = ({ values, touched, errors, status }) => {
                 {touched.funds_needed && errors.funds_needed && (
                     <p className='error'>{errors.funds_needed}</p>
                 )}
-                ////funds fundsraised    
+                {/* ////funds fundsraised    
                 <Field type='text' name='funds_raised' placeholder='Funds Raised' />
                 {touched.funds_raised && errors.funds_raised && (
                     <p className='error'>{errors.funds_raised}</p>
-                )}
+                )} */}
                 <br />
                 <button type='submit'>Submit</button>
             </Form>
@@ -144,6 +123,7 @@ const FormikSchoolData = withFormik({
             funds_needed: funds_needed || '',
             funds_raised: funds_raised || ''
         };
+
     },
     validationSchema: Yup.object().shape({
         school_name: Yup.string().required(),
@@ -155,7 +135,7 @@ const FormikSchoolData = withFormik({
         funds_raised: Yup.string().required(),
     }),
     handleSubmit(values, { setStatus }) {
-        axios.post('https://luncher-bw.herokuapp.com/api/register', values)
+        axios.post(`https://luncher-bw.herokuapp.com/api/admins/id`, values)
             .then(res => { setStatus(res.data); })
             .catch(err => console.log(err.response));
     }
@@ -164,6 +144,6 @@ const FormikSchoolData = withFormik({
 
 //////////////uncomment the line below!!!!
 
-// export default FormikSchoolData;
-// console.log('this better work', FormikSchoolData);
+export default FormikSchoolData;
+console.log('this better work', FormikSchoolData);
 

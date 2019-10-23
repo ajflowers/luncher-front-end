@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+import SearchForm from './SearchForm';
+
 const Card = styled.div`
  display: flex;
  flex-direction: column;
@@ -55,12 +57,18 @@ export default function SchoolList() {
             .get(`https://luncher-bw.herokuapp.com/api/schools`)
 
             .then(response => {
-                const schoolInput = response.data.filter(school =>
-                    school.school_name.toLowerCase().includes(query.toLowerCase())
-                );
+                // const schoolInput = response.filter(school =>
+                //     school.school_name.toLowerCase().includes(query.toLowerCase())
+                // );
                 console.log('school list', response);
-                setData(schoolInput);
+                setData(response.data);
+
+
             })
+        //// 
+        // .then( response => {
+
+        // })
     }, [query]);
 
 

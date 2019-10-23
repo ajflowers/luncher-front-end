@@ -7,7 +7,7 @@ import SchoolList from './components/SchoolList';
 function App() {
 
   // const [schoolList, setSchoolList] = useState();
-  console.log(SchoolData);
+  // console.log(SchoolData);
 
   // const addNewSchool = school => {
   //   setSchoolList([...schoolList, school])
@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <h1>School List</h1>
-      <SchoolList schoolList={SchoolData} />
+      <SchoolList />
     </div>
   );
 }
