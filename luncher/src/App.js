@@ -28,7 +28,7 @@ function App() {
         <Route exact path="/register" coomponent={Register} />
         <PrivateRoute exact path="/dashboard" component={AdminDash} />
       </div>
-      </Router>
+    </Router>
   );
 }
 
