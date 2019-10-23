@@ -135,7 +135,7 @@ const FormikSchoolData = withFormik({
         funds_raised: Yup.string().required(),
     }),
     handleSubmit(values, { setStatus }) {
-        axios.post(`https://luncher-bw.herokuapp.com/api/admins/id`, values)
+        axios.post(`https://luncher-bw.herokuapp.com/api/admins/:id/school`, values)
             .then(res => { setStatus(res.data); })
             .catch(err => console.log(err.response));
     }

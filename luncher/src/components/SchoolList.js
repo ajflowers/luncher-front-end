@@ -4,15 +4,22 @@ import axios from 'axios';
 
 import SearchForm from './SearchForm';
 
+const Container = styled.div`
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+`;
+
 const Card = styled.div`
  display: flex;
  flex-direction: column;
  justify-content: center;
  align-items: center;
- padding: 1rem;
- margin: 5% auto;
- width: 25%;
- height: 300px;
+ padding: 20px;
+ margin: 10px;
+ width: 250px;
+ height: 360px;
  background-color: #F8F8F8;
  opacity: 0.7;
  border: 1px solid black;
@@ -36,7 +43,7 @@ const ActionButton = styled.button`
  border: 1px solid black;
  outline: 0;
  font-weight: 800;
- border-radius; 10px;
+ border-radius: 5px;
  :hover {
      opacity: 0.8
  }
@@ -87,16 +94,19 @@ export default function SchoolList() {
             />
 
             {data.map((school => (
-                <Card key={school.id}>
-                    <H1>{school.school_name}</H1>
-                    <P>{school.address}</P>
-                    <P>{school.city}, {school.state}. {school.zipcode}</P>
-                    <ActionButton type='needed'>{school.funds_needed} Funds Needed</ActionButton>
-                    <ActionButton type='raised'>{school.funds_raised} Funds Raised</ActionButton>
-                    <br />
-                    <ActionButton type='donate'>Donate To {school.school_name}</ActionButton>
-                    <br />
-                </Card>
+                <Container>
+                    <Card key={school.id}>
+                        <H1>{school.school_name}</H1>
+                        <P>{school.address}</P>
+                        <P>{school.city}, {school.state}. {school.zipcode}</P>
+                        <ActionButton type='needed'>{school.funds_needed} Funds Needed</ActionButton>
+                        <br />
+                        <ActionButton type='raised'>{school.funds_raised} Funds Raised</ActionButton>
+                        <br />
+                        <ActionButton type='donate'>Donate To {school.school_name}</ActionButton>
+                        <br />
+                    </Card>
+                </Container>
             )
             ))}
         </section>
