@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     return (
         <div className='nav-header'>
-            <h1>Luncher</h1>
-            <h2>(Lunchr?)</h2>
+            <h2>Luncher</h2>
+            <p>links go here</p>           
         </div>
     )
 }
