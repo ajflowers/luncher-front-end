@@ -42,7 +42,7 @@ const ActionButton = styled.button`
  cursor: pointer;
  border: 1px solid black;
  outline: 0;
- font-weight: 800;
+ font-weight: 900;
  border-radius: 5px;
  :hover {
      opacity: 0.8
