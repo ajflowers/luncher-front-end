@@ -21,13 +21,17 @@ export const fetchSchools = () => dispatch => {
 }
 
 export const sendLogin = (credentials, history) => dispatch => {
-    axiosWithAuth()
-        .post("/admins/login", credentials)
-        .then(res => {
-            console.log('login response', res);
-            localStorage.setItem('token', res.data.token);
-            dispatch({ type: LOGGED_IN, payload: res.data.admin.id});
-            history.push("/dashboard")
-        })
-        .catch(err => dispatch({type: API_ERROR, payload: err}));
+    if(credentials.username == '' || credentials.password == '') {
+        alert("username and/or password may not be blank")
+    } else {
+        axiosWithAuth()
+            .post("/admins/login", credentials)
+            .then(res => {
+                console.log('login response', res);
+                localStorage.setItem('token', res.data.token);
+                dispatch({ type: LOGGED_IN, payload: res.data.admin.id});
+                history.push("/dashboard")
+            })
+            .catch(err => dispatch({type: API_ERROR, payload: err}));
+        }
 }
