@@ -25,7 +25,7 @@ function App() {
         <Header />
         <Route exact path="/" component={SchoolList} />
         <Route path="/login" component={Login} />
-        <Route path="/register" coomponent={Register} />
+        <Route path="/register" component={Register} />
         <PrivateRoute path="/dashboard" component={AdminDash} />
       </div>
     </Router>
