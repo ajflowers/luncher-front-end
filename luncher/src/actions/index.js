@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 export const LOADING_SCHOOLS = 'LOADING_SCHOOLS'
@@ -11,8 +12,9 @@ export const SCHOOL_DELETED = 'SCHOOL_DELETED'
 export const DONATION_RECEIVED = 'DONATION_RECEIVED'
 export const API_ERROR = 'API_ERROR'
 
+// const history = useHistory()
+
 export const fetchSchools = () => dispatch => {
-    console.log('app GET request fired')
     dispatch({ type: LOADING_SCHOOLS })
     axiosWithAuth()
         .get("/schools")
@@ -20,4 +22,19 @@ export const fetchSchools = () => dispatch => {
             console.log('app.js retrieval', res);
             dispatch({ type: SCHOOLS_LOADED, payload: res.data})
         })
+        .catch(err => dispatch({type: API_ERROR, payload: err}))
+}
+
+export const sendLogin = (credentials, history) => dispatch => {
+    dispatch({ type: FORM_SENT })
+    axiosWithAuth()
+        .post("/admins/login", credentials)
+        .then(res => {
+            console.log('login response', res);
+            localStorage.setItem('token', res.data.token);
+            dispatch({ type: LOGGED_IN, payload: res.data.admin.id});
+            history.push("/dashboard")
+        })
+        .catch(err => dispatch({type: API_ERROR, payload: err}))
+
 }

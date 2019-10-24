@@ -42,10 +42,8 @@ function App(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-
-  }
+const mapStateToProps = () => {
+  return {}
 }
 
 export default connect(mapStateToProps, { fetchSchools })(App);

@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 dataLoading: false,
                 formSent: false,
-                error: action.payload
+                error: action.payload.response
             }
         case LOADING_SCHOOLS:
             return {
@@ -34,7 +34,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 schools: action.payload,
                 dataLoading: false,
-                error: '',
+                error: ''
+            }
+        case LOGGED_IN: 
+            return {
+                ...state,
+                adminID: action.payload,
+                formSent: false,
+                error: ''
             }
         default:
             return state;

@@ -1,67 +1,77 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { sendLogin } from '../actions'
 
-class Login extends React.Component {
-  state = {
-    credentials: {
-      username: "",
-      password: ""
-    }
-  }
+const Login = props => {
+  const history = useHistory()
 
-  handleChange = e => {
-    this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [e.target.name]: e.target.value
-      }
-    });
+  const [credentials, setCredentials] = useState ({
+    username: "",
+    password: ""
+  })
+  
+
+  const handleChange = e => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  login = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    axiosWithAuth()
-      .post("/admins/login", this.state.credentials)
-      .then(res => {
-        console.log(res);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("adminID", res.data.admin.id);
+    console.log('sending login to actions', credentials)
+    props.sendLogin(credentials, history)
+    // axiosWithAuth()
+    //   .post("/admins/login", credentials)
+    //   .then(res => {
+    //     console.log(res);
+    //     localStorage.setItem("token", res.data.token);
+    //     localStorage.setItem("adminID", res.data.admin.id);
 
-        this.props.history.push("/dashboard")
-      })
-      .catch(err => console.log(err))  
+    //     history.push("/dashboard")
+    //   })
+    //   .catch(err => console.log(err))  
   }
 
-  render() {
-    return (
-      <div className="login-form">
-        <h2>School Administrator Login</h2>
-        <form onSubmit={this.login}>
-          <label>
-            Username:
-            <input
-              type="text"
-              name="username"
-              value={this.state.credentials.username}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Password:
-            <input
-              type="password"
-              name="password"
-              value={this.state.credentials.password}
-              onChange={this.handleChange}
-            />
-          </label>
-          <br />
-          <button>Log In</button>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div className="login-form">
+      <h2>School Administrator Login</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input
+            type="text"
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <button>Log In</button>
+      </form>
+      {props.formSent && <p>Waiting...</p>}
+      {props.error && <p>{props.error}</p>}
+
+    </div>
+  );
 };
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    formSent: state.formSent,
+    error: state.error
+  }
+}
+
+export default connect(mapStateToProps, { sendLogin })(Login);
