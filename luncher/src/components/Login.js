@@ -25,6 +25,8 @@ class Login extends React.Component {
       .then(res => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("adminID", res.data.admin.id);
+
         this.props.history.push("/dashboard")
       })
       .catch(err => console.log(err))  

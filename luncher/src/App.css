@@ -20,3 +20,9 @@
 .App-link {
   color: #09d3ac;
 }
+
+.page-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

@@ -1,8 +1,12 @@
 import React from 'react'
 
+import SchoolData from './SchoolData'
+
 const AdminDash = () => {
     return (
-        <div className="admin-dash"></div>
+        <div className="admin-dash">
+            <SchoolData />
+        </div>
     )
 }
 
