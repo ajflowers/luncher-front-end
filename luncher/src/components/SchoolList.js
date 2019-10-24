@@ -58,28 +58,28 @@ const ActionButton = styled.button`
 
 const SchoolList = props => {
     // const [data, setData] = useState([]);
-    const [query, setQuery] = useState('');
+    // const [query, setQuery] = useState('');
 
-    useEffect(() => {
-        axios
-            .get(`https://luncher-bw.herokuapp.com/api/schools`)
+    // useEffect(() => {
+    //     axios
+    //         .get(`https://luncher-bw.herokuapp.com/api/schools`)
 
-            .then(response => {
-                const schoolInput = response.data.filter(school =>
-                    school.school_name.toLowerCase().includes(query.toLowerCase())
-                );
-                console.log('school list', response);
-                setData(schoolInput);
-
-
-            })
-
-    }, [query]);
+    //         .then(response => {
+    //             const schoolInput = response.data.filter(school =>
+    //                 school.school_name.toLowerCase().includes(query.toLowerCase())
+    //             );
+    //             console.log('school list', response);
+    //             setData(schoolInput);
 
 
-    const handleInputChange = event => {
-        setQuery(event.target.value);
-    }
+    //         })
+
+    // }, [query]);
+
+
+    // const handleInputChange = event => {
+    //     setQuery(event.target.value);
+    // }
 
     if (props.loading) {
         return <h3>Loading schools...</h3>
@@ -87,11 +87,11 @@ const SchoolList = props => {
 
     return (
         <section className='school-list'>
-            <SearchForm
+            {/* <SearchForm
                 placeholder='Search Schools'
                 value={query}
                 handleChange={handleInputChange}
-            />
+            /> */}
             {props.error && <p>{props.error}</p>}
             {props.schools.map((school => (
                 <Container>
