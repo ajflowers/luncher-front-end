@@ -9,6 +9,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import AdminDash from './components/AdminDash'
 import PrivateRoute from './components/PrivateRoute'
+import SchoolList from './components/SchoolList';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" coomponent={Register} />
         <PrivateRoute exact path="/dashboard" component={AdminDash} />
+        <SchoolList />
       </div>
     </Router>
   );

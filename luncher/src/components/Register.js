@@ -1,5 +1,7 @@
 import React from "react";
+import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+
 
 class Register extends React.Component {
   state = {
@@ -29,7 +31,7 @@ class Register extends React.Component {
         console.log(res);
         this.props.history.push("/login");
       })
-      .catch(err => console.log(err.response))  
+      .catch(err => console.log(err.response))
   }
 
   render() {
