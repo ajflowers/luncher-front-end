@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish="luncher/build"
+  base = "luncher/"
+  
+  [[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
