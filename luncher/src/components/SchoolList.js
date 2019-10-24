@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { connect } from 'react-redux'
 
 import SearchForm from './SearchForm';
 
@@ -55,8 +56,8 @@ const ActionButton = styled.button`
 
 
 
-export default function SchoolList() {
-    const [data, setData] = useState([]);
+const SchoolList = props => {
+    // const [data, setData] = useState([]);
     const [query, setQuery] = useState('');
 
     useEffect(() => {
@@ -80,7 +81,9 @@ export default function SchoolList() {
         setQuery(event.target.value);
     }
 
-
+    if (props.loading) {
+        return <h3>Loading schools...</h3>
+    }
 
     return (
         <section className='school-list'>
@@ -89,8 +92,8 @@ export default function SchoolList() {
                 value={query}
                 handleChange={handleInputChange}
             />
-
-            {data.map((school => (
+            {props.error && <p>{props.error}</p>}
+            {props.schools.map((school => (
                 <Container>
                     <Card key={school.id}>
                         <H1>{school.school_name}</H1>
@@ -110,3 +113,13 @@ export default function SchoolList() {
     );
 
 };
+
+const mapStateToProps = state => {
+    return {
+        schools: state.schools,
+        loading: state.dataLoading,
+        error: state.error
+    }
+}
+
+export default connect(mapStateToProps, {})(SchoolList)

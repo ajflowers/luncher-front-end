@@ -13,9 +13,11 @@ product vision: https://www.notion.so/dislersd/Product-Vision-8650648b724a4bb6b6
 
 **Register - POST**
     {
-        username: "bsmith1"
-        password: "abc123"
-        email: "bobsmith@pgh.edu"
+        "username":"admin",
+        "password":"password",
+        "email":"admin@gmail.com",
+        "first_name": "Admin",
+        "last_name": "Schoolson"
     }
 
 **Schools list - GET**
