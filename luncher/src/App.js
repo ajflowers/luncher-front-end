@@ -9,6 +9,7 @@ import SchoolList from './components/SchoolList'
 import Register from './components/Register'
 import AdminDash from './components/AdminDash'
 import PrivateRoute from './components/PrivateRoute'
+import SchoolList from './components/SchoolList';
 
 function App() {
 
@@ -25,7 +26,7 @@ function App() {
         <Header />
         <Route exact path="/" component={SchoolList} />
         <Route path="/login" component={Login} />
-        <Route path="/register" coomponent={Register} />
+        <Route path="/register" component={Register} />
         <PrivateRoute path="/dashboard" component={AdminDash} />
       </div>
     </Router>
