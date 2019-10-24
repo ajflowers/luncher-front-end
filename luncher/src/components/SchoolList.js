@@ -64,18 +64,15 @@ export default function SchoolList() {
             .get(`https://luncher-bw.herokuapp.com/api/schools`)
 
             .then(response => {
-                // const schoolInput = response.filter(school =>
-                //     school.school_name.toLowerCase().includes(query.toLowerCase())
-                // );
+                const schoolInput = response.data.filter(school =>
+                    school.school_name.toLowerCase().includes(query.toLowerCase())
+                );
                 console.log('school list', response);
-                setData(response.data);
+                setData(schoolInput);
 
 
             })
-        //// 
-        // .then( response => {
 
-        // })
     }, [query]);
 
 
