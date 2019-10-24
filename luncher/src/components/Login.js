@@ -60,7 +60,6 @@ const Login = props => {
         <br />
         <button>Log In</button>
       </form>
-      {props.formSent && <p>Waiting...</p>}
       {props.error && <p>{props.error}</p>}
 
     </div>

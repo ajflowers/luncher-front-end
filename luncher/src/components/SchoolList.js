@@ -60,24 +60,21 @@ const SchoolList = props => {
     // const [data, setData] = useState([]);
     const [query, setQuery] = useState('');
 
-    // useEffect(() => {
-    //     axios
-    //         .get(`https://luncher-bw.herokuapp.com/api/schools`)
+    useEffect(() => {
+        axios
+            .get(`https://luncher-bw.herokuapp.com/api/schools`)
 
-    //         .then(response => {
-    //             // const schoolInput = response.filter(school =>
-    //             //     school.school_name.toLowerCase().includes(query.toLowerCase())
-    //             // );
-    //             console.log('school list', response);
-    //             setData(response.data);
+            .then(response => {
+                const schoolInput = response.data.filter(school =>
+                    school.school_name.toLowerCase().includes(query.toLowerCase())
+                );
+                console.log('school list', response);
+                setData(schoolInput);
 
 
-    //         })
-    //     //// 
-    //     // .then( response => {
+            })
 
-    //     // })
-    // }, [query]);
+    }, [query]);
 
 
     const handleInputChange = event => {

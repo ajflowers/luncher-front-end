@@ -1,10 +1,9 @@
-import { LOADING_SCHOOLS, SCHOOLS_LOADED, FORM_SENT, ADMIN_REGISTERED, LOGGED_IN, SCHOOL_ADDED, SCHOOL_EDITED, SCHOOL_DELETED, DONATION_RECEIVED, API_ERROR} from '../actions'
+import { LOADING_SCHOOLS, SCHOOLS_LOADED, LOGGED_IN, SCHOOL_ADDED, SCHOOL_EDITED, SCHOOL_DELETED, DONATION_RECEIVED, API_ERROR} from '../actions'
 
 const initialState = {
     adminID: '',
     schools: [],
     dataLoading: false,
-    formSent: false,
     error: ''
 }
 
