@@ -9,7 +9,7 @@ import SchoolList from './components/SchoolList'
 import Register from './components/Register'
 import AdminDash from './components/AdminDash'
 import PrivateRoute from './components/PrivateRoute'
-import SchoolList from './components/SchoolList';
+
 
 function App() {
 
