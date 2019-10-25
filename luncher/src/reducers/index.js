@@ -34,6 +34,12 @@ const reducer = (state = initialState, action) => {
                 adminID: action.payload,
                 error: ''
             }
+        case SCHOOL_ADDED:
+            return {
+                ...state,
+                schools: [...state.schools, action.payload],
+                error: ''
+            }
         default:
             return state;
     }

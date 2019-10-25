@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { connect,  } from 'react-redux';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-
+import { useHistory } from 'react-router-dom';
+import { addSchool } from '../actions';
 
 
 ////// This is the schoolform data that admin creates
-const SchoolData = () => {
+const SchoolData = props => {
+    const history = useHistory();
 
     const [schoolInfo, setSchoolInfo] = useState({
         school_name: '',
@@ -19,12 +22,8 @@ const SchoolData = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        const adminID = localStorage.getItem('adminID')
-        axiosWithAuth()
-            .post(`admins/${adminID}/school`, schoolInfo)
-            .then(res => console.log(res))
-            .catch(err => console.log(err.response));
-
+        const adminID = props.adminID;
+        props.addSchool(schoolInfo, adminID, history);
     }
 
     const handleChange = e => {
@@ -123,7 +122,13 @@ const SchoolData = () => {
     );
 }
 
-export default SchoolData;
+const mapStateToProps = state => {
+    return {
+        adminID: state.adminID
+    }
+}
+
+export default connect(mapStateToProps, { addSchool })(SchoolData);
 
 /*
 const SchoolData = ({ values, touched, errors, status }) => {
