@@ -25,4 +25,18 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color: #636E72;
+  
+  
 }
+
+.page-header a {
+  text-decoration: none;
+  padding: 10px;
+  color: #f8f8f8;
+}
+
+.page-header a :hover {
+  transform: scale(1.3);
+}
+
