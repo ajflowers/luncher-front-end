@@ -12,6 +12,8 @@ import Login from './components/Login'
 import SchoolList from './components/SchoolList'
 import Register from './components/Register'
 import AdminDash from './components/AdminDash'
+import UpdateSchool from './components/UpdateSchool'
+
 import PrivateRoute from './components/PrivateRoute'
 
 
@@ -37,6 +39,8 @@ function App(props) {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <PrivateRoute path="/dashboard" component={AdminDash} />
+        <PrivateRoute path="/dashboard/edit" component={UpdateSchool} />
+
       </div>
     </Router>
   )

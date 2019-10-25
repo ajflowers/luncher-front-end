@@ -6,7 +6,6 @@ export const LOGGED_IN = 'LOGGED_IN'
 export const SCHOOL_ADDED = 'SCHOOL_ADDED'
 export const SCHOOL_EDITED = 'SCHOOL_EDITED'
 export const SCHOOL_DELETED = 'SCHOOL_DELETED'
-export const DONATION_RECEIVED = 'DONATION_RECEIVED'
 export const API_ERROR = 'API_ERROR'
 
 export const fetchSchools = () => dispatch => {
@@ -44,11 +43,19 @@ export const addSchool = (schoolInfo, adminID, history) => dispatch => {
             dispatch({ type: SCHOOL_ADDED, payload: res.data })
             history.push("/")
         })
-        .catch(err => console.log(err.response));
+        .catch(err => dispatch({ type: API_ERROR, payload: err }));
 }
 
-export const editSchool = () => dispatch => {
-    
+export const editSchool = (newInfo, adminID, history) => dispatch => {
+    axiosWithAuth()
+        .put(`/schools/${adminID}`, newInfo)
+        .then(res => {
+            console.log('school edited:', res)
+            dispatch({ type: SCHOOL_EDITED, payload: res.data.now})
+            history.push("/dashboard")
+
+        })
+        .catch(err => dispatch({ type: API_ERROR, payload: err }));
 }
 
 export const deleteSchool = adminID => dispatch => {
@@ -58,11 +65,5 @@ export const deleteSchool = adminID => dispatch => {
             console.log(res);
             dispatch({ type: SCHOOL_DELETED, payload: adminID})
         })
-    
-}
-
-export const filterSchools = (schools, adminID) => dispatch => {
-    const filtered = schools.filter(school => school.admin_id === adminID);
-    console.log(filtered);
-
+        .catch(err => dispatch({ type: API_ERROR, payload: err }));
 }
