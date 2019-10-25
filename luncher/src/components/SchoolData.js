@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { connect,  } from 'react-redux';
-import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from 'react-router-dom';
 import { addSchool } from '../actions';
 
 
 ////// This is the schoolform data that admin creates
-const SchoolData = ({ adminID, addSchool }) => {
+const SchoolData = props => {
     const history = useHistory();
 
     const [schoolInfo, setSchoolInfo] = useState({
@@ -22,8 +21,8 @@ const SchoolData = ({ adminID, addSchool }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        
-        addSchool(schoolInfo, adminID, history);
+        const adminID = props.adminID;
+        props.addSchool(schoolInfo, adminID, history);
     }
 
     const handleChange = e => {
@@ -32,7 +31,7 @@ const SchoolData = ({ adminID, addSchool }) => {
 
     return (
         <div className='school-information'>
-            <h2>register new school</h2>
+            <h2>Welcome! Please register your school.</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     School Name:
@@ -115,6 +114,11 @@ const SchoolData = ({ adminID, addSchool }) => {
                 <label>
                     Fundraising Goal:
                     <input type='number' name='funds_needed' placeholder='Fund Goal' onChange={e => handleChange(e)} />
+                </label>
+                <br />
+                <label>
+                    Funds Raised So Far:
+                    <input type='number' name='funds_raised' placeholder='Funds Raised' onChange={e => handleChange(e)} />
                 </label>                
                 <br/>
                 <button type='submit'>Submit</button>

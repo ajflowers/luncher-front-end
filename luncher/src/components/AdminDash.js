@@ -1,15 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import SchoolData from './SchoolData'
-import MySchools from './MySchools'
+import SchoolAdmin from './SchoolAdmin'
 
-const AdminDash = () => {
+const AdminDash = ({ mySchools }) => {
     return (
         <div className="admin-dash">
-            <MySchools />
-            <SchoolData />
+            {mySchools.length > 0 ? <SchoolAdmin /> : <SchoolData />}
         </div>
     )
 }
 
-export default AdminDash
+const mapStateToProps = state => {
+    return {
+        mySchools: state.mySchools
+    }
+}
+
+export default connect(mapStateToProps, {})(AdminDash)

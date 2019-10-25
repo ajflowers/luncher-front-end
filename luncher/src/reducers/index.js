@@ -1,4 +1,4 @@
-import { LOADING_SCHOOLS, SCHOOLS_LOADED, LOGGED_IN, SCHOOL_ADDED, SCHOOL_EDITED, SCHOOL_DELETED, DONATION_RECEIVED, API_ERROR} from '../actions'
+import { LOADING_SCHOOLS, SCHOOLS_LOADED, LOGGED_IN, SCHOOL_ADDED, SCHOOL_EDITED, SCHOOL_DELETED, API_ERROR} from '../actions'
 
 const initialState = {
     adminID: '',
@@ -23,13 +23,15 @@ const reducer = (state = initialState, action) => {
                 error: ''
             }
         case SCHOOLS_LOADED:
+            //payload: array of school objects
             return {
                 ...state,
                 schools: action.payload,
                 dataLoading: false,
                 error: ''
             }
-        case LOGGED_IN: 
+        case LOGGED_IN:
+            //payload = admin id as number 
             return {
                 ...state,
                 adminID: action.payload,
@@ -37,6 +39,7 @@ const reducer = (state = initialState, action) => {
                 error: ''
             }
         case SCHOOL_ADDED:
+            //payload: new school object
             return {
                 ...state,
                 schools: [...state.schools, action.payload],
@@ -44,10 +47,20 @@ const reducer = (state = initialState, action) => {
                 error: ''
             }
         case SCHOOL_DELETED:
+            //payload: admin id associated with deleted school
             return{
                 ...state,
                 schools: state.schools.filter(school => school.admin_id !== action.payload),
-                mySchools: []
+                mySchools: [],
+                error: ''
+            }
+        case SCHOOL_EDITED:
+            //payload: updated school info object
+            return {
+                ...state,
+                mySchools: [action.payload],
+                schools: state.schools.map(school => school.id === action.payload.id ? action.payload : school),
+                error: ''
             }
 
         default:

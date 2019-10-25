@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Container, Card, H1, P, ActionButton } from '../styles';
 import { deleteSchool } from '../actions';
 
-const MySchools = ({ schools, mySchools, error, adminID, deleteSchool }) => {
+const SchoolAdmin = ({ mySchools, error, adminID, deleteSchool }) => {
+    const history = useHistory();
 
     const handleDelete = e => {
         e.preventDefault();
         deleteSchool(adminID);
     }
 
+    const editInfo = e => {
+        e.preventDefault();
+        history.push("/dashboard/edit")
+    }
+
     return (
         <div className='my-schools'>
-            <h2>schools currently managed:</h2>
+            <h2>My School:</h2>
             {error && <p>{error}</p>}
             {mySchools.map((school => (
                 <Container key={school.id}>
@@ -20,7 +27,12 @@ const MySchools = ({ schools, mySchools, error, adminID, deleteSchool }) => {
                         <H1>{school.school_name}</H1>
                         <P>{school.address}</P>
                         <P>{school.city}, {school.state}. {school.zipcode}</P>
-                        <ActionButton>Edit School</ActionButton>
+                        <ActionButton
+                            onClick={editInfo}
+                        >
+                            Edit School
+                        </ActionButton>
+                        <br />
                         <ActionButton
                             onClick={handleDelete}
                         >
@@ -37,11 +49,10 @@ const MySchools = ({ schools, mySchools, error, adminID, deleteSchool }) => {
 
 const mapStateToProps = state => {
     return {
-        schools: state.schools,
         mySchools: state.mySchools,
         error: state.error,
         adminID: state.adminID
     }
 }
 
-export default connect(mapStateToProps, { deleteSchool })(MySchools)
+export default connect(mapStateToProps, { deleteSchool })(SchoolAdmin)
