@@ -13,10 +13,10 @@ const School = () => {
         donation: 2000
     })
 
-    const handleSubmit = e => {
+    const handleSubmit = (e, id) => {
         e.preventDefault();
         axios
-            .post(`/api/schools/:id`, donationInput)
+            .post(`/api/schools/${id}`, donationInput)
             .then(res => console.log(res))
             .catch(err => console.log(err.response));
 
