@@ -3,6 +3,7 @@ import { LOADING_SCHOOLS, SCHOOLS_LOADED, LOGGED_IN, SCHOOL_ADDED, SCHOOL_EDITED
 const initialState = {
     adminID: '',
     schools: [],
+    mySchools: [],
     dataLoading: false,
     error: ''
 }
@@ -32,14 +33,23 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 adminID: action.payload,
+                mySchools: state.schools.filter(school => school.admin_id === action.payload),
                 error: ''
             }
         case SCHOOL_ADDED:
             return {
                 ...state,
                 schools: [...state.schools, action.payload],
+                mySchools: [...state.mySchools, action.payload],
                 error: ''
             }
+        case SCHOOL_DELETED:
+            return{
+                ...state,
+                schools: state.schools.filter(school => school.admin_id !== action.payload),
+                mySchools: []
+            }
+
         default:
             return state;
     }

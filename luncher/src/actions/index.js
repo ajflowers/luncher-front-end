@@ -51,6 +51,18 @@ export const editSchool = () => dispatch => {
     
 }
 
-export const deleteSchool = () => dispatch => {
+export const deleteSchool = adminID => dispatch => {
+    axiosWithAuth()
+        .delete(`/schools/${adminID}`)
+        .then(res => {
+            console.log(res);
+            dispatch({ type: SCHOOL_DELETED, payload: adminID})
+        })
     
+}
+
+export const filterSchools = (schools, adminID) => dispatch => {
+    const filtered = schools.filter(school => school.admin_id === adminID);
+    console.log(filtered);
+
 }

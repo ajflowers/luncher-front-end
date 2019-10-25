@@ -6,7 +6,7 @@ import { addSchool } from '../actions';
 
 
 ////// This is the schoolform data that admin creates
-const SchoolData = props => {
+const SchoolData = ({ adminID, addSchool }) => {
     const history = useHistory();
 
     const [schoolInfo, setSchoolInfo] = useState({
@@ -22,8 +22,8 @@ const SchoolData = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        const adminID = props.adminID;
-        props.addSchool(schoolInfo, adminID, history);
+        
+        addSchool(schoolInfo, adminID, history);
     }
 
     const handleChange = e => {
@@ -32,6 +32,7 @@ const SchoolData = props => {
 
     return (
         <div className='school-information'>
+            <h2>register new school</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     School Name:
