@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { sendLogin } from '../actions'
 
 const Login = props => {
@@ -68,7 +67,6 @@ const Login = props => {
 
 const mapStateToProps = state => {
   return {
-    formSent: state.formSent,
     error: state.error
   }
 }

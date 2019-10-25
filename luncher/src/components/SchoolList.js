@@ -94,8 +94,8 @@ const SchoolList = props => {
             /> */}
             {props.error && <p>{props.error}</p>}
             {props.schools.map((school => (
-                <Container>
-                    <Card key={school.id}>
+                <Container key={school.id}>
+                    <Card>
                         <H1>{school.school_name}</H1>
                         <P>{school.address}</P>
                         <P>{school.city}, {school.state}. {school.zipcode}</P>

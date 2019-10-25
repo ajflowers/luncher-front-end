@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Container, Card, H1, P, ActionButton } from '../styles';
+import { deleteSchool } from '../actions';
 
-const MySchools = props => {
-    const [schoolsManaged, setSchoolsManaged] = []
-    useEffect(() => {
-        setSchoolsManaged(props.schools.filter(school => school.admin_id == props.adminID ))
+const MySchools = ({ schools, mySchools, error, adminID, deleteSchool }) => {
 
-    }, [props.schools])
+    const handleDelete = e => {
+        e.preventDefault();
+        deleteSchool(adminID);
+    }
 
     return (
-        <div></div>
+        <div className='my-schools'>
+            <h2>schools currently managed:</h2>
+            {error && <p>{error}</p>}
+            {mySchools.map((school => (
+                <Container key={school.id}>
+                    <Card>
+                        <H1>{school.school_name}</H1>
+                        <P>{school.address}</P>
+                        <P>{school.city}, {school.state}. {school.zipcode}</P>
+                        <ActionButton>Edit School</ActionButton>
+                        <ActionButton
+                            onClick={handleDelete}
+                        >
+                            Delete School
+                        </ActionButton>
+                    </Card>
+                </Container>
+            )
+            ))}
+        </div>
     )
 
 }
@@ -17,10 +38,10 @@ const MySchools = props => {
 const mapStateToProps = state => {
     return {
         schools: state.schools,
-        loading: state.dataLoading,
+        mySchools: state.mySchools,
         error: state.error,
         adminID: state.adminID
     }
 }
 
-export default connect(mapStateToProps, {})(MySchools)
+export default connect(mapStateToProps, { deleteSchool })(MySchools)
